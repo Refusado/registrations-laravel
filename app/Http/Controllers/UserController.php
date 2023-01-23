@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -20,6 +20,13 @@ class UserController extends Controller
             "password" => "required|min:8"
         ]);
 
-        dd($request->all());
+        if (UserModel::createUser($request)) {
+            return view('user.success', [
+                "name" => $request->input('name')
+            ]);
+        } else {
+            echo "Falha ao salvar dados no banco";
+        }
+
     }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserModel extends Model
@@ -13,7 +14,7 @@ class UserModel extends Model
     use HasFactory;
 
     protected $connection = 'sqlite';
-    protected $table = 'user';
+    protected $table = 'users';
 
     public static function getUsers($limit)
     {
@@ -30,13 +31,15 @@ class UserModel extends Model
 
     public static function createUser(Request $request)
     {
-        $sql = self::insert([
+        // DB::enableQueryLog();
+
+        return self::insert([
             "name" => $request->input('name'),
             "email" => $request->input('email'),
             "password" => Hash::make($request->input('password')),
-            "register_date" => DB::raw('NOW()')
+            "register_date" => new Carbon()
         ]);
 
-        dd($sql->toSql(), $request->all());
+        // dd(DB::getQueryLog());
     }
 }

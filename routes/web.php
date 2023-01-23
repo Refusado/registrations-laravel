@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [UserController::class, 'registers']);
+Route::get('/', [UserController::class, 'registers'])->name('home');
 Route::post('/save', [UserController::class, 'save'])->name('saveName');
