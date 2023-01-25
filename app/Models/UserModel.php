@@ -16,17 +16,17 @@ class UserModel extends Model
     protected $connection = 'sqlite';
     protected $table = 'users';
 
-    public static function getUsers($limit)
+    public static function getUsers()
     {
         $sql = self::select([
             "id",
             "name",
             "email",
             "register_date"
-        ])
-        ->limit($limit);
+        ]);
 
-        dd($sql->toSql());
+        // dd($sql->toSql());
+        return $sql->get();
     }
 
     public static function createUser(Request $request)

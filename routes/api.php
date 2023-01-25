@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\UserModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::prefix('v1')->group(function () {
-    Route::get('register', function () {
-        return ['a', 'b', 'c'];
-    });
-
-    Route::post('save', fn () => ['d', 'e', 'f', 'g']);
+    Route::get('register', [UserController::class, 'registers']);
+    Route::post('save', [UserController::class, 'save']);
 });
